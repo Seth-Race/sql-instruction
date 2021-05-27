@@ -57,7 +57,9 @@ CONSTRAINT act_mov unique (ActorID, MovieID)
     (6, 'Jason', 'Mewes', 'M', '1974-06-12'),
     (7, 'Joey', 'Adams', 'F', '1968-01-09'),
     (8, 'Samuel L', 'Jackson', 'M', '1948-12-21'),
-    (9, 'Kevin', 'Smith', 'M', '1970-08-02');
+    (9, 'Kevin', 'Smith', 'M', '1970-08-02'),
+    (10, 'Ewan', 'McGregor', 'M', '1971-03-31'),
+    (11, 'Jason', 'Lee', 'M', '1970-04-25');
     
 -- Add movie credits for actors
  insert into Credit (ActorID, MovieID, Role) VALUES
@@ -76,7 +78,10 @@ CONSTRAINT act_mov unique (ActorID, MovieID)
     (6, 7, 'Az'),
     (7, 7, 'Hippy Chick'),
     (9, 3, 'Silent Bob'),
-    (9, 4, 'Silent Bob');
+    (9, 4, 'Silent Bob'),
+    (10, 5, 'Obi-Wan Kenobi'),
+    (11, 7, 'Donner'),
+    (11, 4, 'Banky Edwards');
 
 
 -- create a user and grant privileges to that user
