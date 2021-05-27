@@ -1,7 +1,7 @@
 -- create and select the database
-DROP DATABASE IF EXISTS fooddb;
-CREATE DATABASE fooddb;
-USE fooddb;
+DROP DATABASE IF EXISTS foodDB;
+CREATE DATABASE foodDB;
+USE foodDB;
 
 
 
@@ -22,7 +22,7 @@ phoneNumber		varchar(16)
 
 create table category(
 ID					integer				primary key auto_increment,
-name				varchar(9)			not null unique
+name				varchar(12)			not null unique
 );
 
 
@@ -64,12 +64,18 @@ CONSTRAINT ord_menu unique (orderTicketID, menuItemID)
 );
 
 -- thing injection
---  insert into thing () VALUES
--- ();
+ insert into category (Name) VALUES
+('Appetizers'),
+('Salads'),
+('Entrees'),
+('Sides'),
+('Drinks'),
+('Desserts')
+;
 
 
 
 -- create a user and grant privileges to that user
-DROP USER IF EXISTS fooddb_user@localhost;
-CREATE USER fooddb_user@localhost IDENTIFIED BY 'sesame';
-GRANT SELECT, INSERT, DELETE, UPDATE ON fooddb.* TO fooddb_user@localhost;
+DROP USER IF EXISTS foodDB_user@localhost;
+CREATE USER foodDB_user@localhost IDENTIFIED BY 'sesame';
+GRANT SELECT, INSERT, DELETE, UPDATE ON foodDB.* TO foodDB_user@localhost;
