@@ -38,3 +38,9 @@
 --     (11, 13, 'Azrael')
 -- ;
 
+-- left outer join showing all movies, including those without actors
+-- select m.year, m.title, a.firstName as 'Actor', a.lastName as 'Name', c.role from movie m
+-- 	left outer join credit c on m.id = c.movieID
+--     left outer join actor a on a.id = c.actorID
+--    order by m.title and a.lastName asc
+-- ;
