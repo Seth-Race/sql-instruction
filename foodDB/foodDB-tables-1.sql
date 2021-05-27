@@ -31,10 +31,10 @@ create table menuItem (
 ID					integer				primary key auto_increment,
 categoryID			integer				not null,
 name				varchar(50)			not null,
-price				decimal				not null,
+price				decimal(10,2)		not null,
 calories			integer				not null,
 Foreign Key			(categoryID) 		references category(ID),
-CONSTRAINT unq_name unique (categoryID, name)
+CONSTRAINT cat_name unique (categoryID, name)
 );
 
 
@@ -45,9 +45,9 @@ ID				integer					primary key auto_increment,
 customerID		integer					not null,
 orderDate		timestamp				not null,
 status			varchar(1)				not null,
-total			decimal					not null,
+total			decimal(10,2)			not null,
 Foreign Key 	(customerID)			references	customer(ID),
-CONSTRAINT unq_ticket unique (customerID, orderDate)
+CONSTRAINT cust_ord unique (customerID, orderDate)
 );
 
 
@@ -60,7 +60,7 @@ menuItemID				integer				not null,
 quantity				integer				not null,
 Foreign Key 			(orderTicketID)		references orderTicket(ID),
 Foreign Key				(menuItemID)		references menuItem(ID),
-CONSTRAINT unq_line unique (orderTicketID, menuItemID)
+CONSTRAINT ord_menu unique (orderTicketID, menuItemID)
 );
 
 -- thing injection
