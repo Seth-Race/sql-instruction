@@ -43,9 +43,9 @@ CONSTRAINT cat_name unique (categoryID, name)
 create table orderTicket (
 ID				integer					primary key auto_increment,
 customerID		integer					not null,
-orderDate		timestamp				not null,
-status			varchar(1)				not null,
-total			decimal(10,2)			not null,
+orderDate		timestamp				not null default (current_timestamp),
+status			varchar(1)				not null default 'O',
+total			decimal(10,2)			not null default '0',
 Foreign Key 	(customerID)			references	customer(ID),
 CONSTRAINT cust_ord unique (customerID, orderDate)
 );
