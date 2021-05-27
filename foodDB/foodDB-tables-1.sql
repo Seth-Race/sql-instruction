@@ -7,61 +7,69 @@ USE fooddb;
 
 
 
--- creation of Student, Course, StudentCourse, and Instructor tables
+-- creation of tables
 
 
 Create table Customer (
-ID 				integer 		primary key auto_increment,
-firstName 		varchar(255) 	    not null,
-customerNumber	integer				not null auto_increment,
-lastName 		varchar(255) 		not null,
-phoneNumber		varchar(255)		not null unique,
-email			varchar(255)		not null
--- CONSTRAINT unq_student unique (FirstName, LastName, BirthDate)
+ID 				integer 			primary key auto_increment,
+customerNumber	varchar(5)			not null unique,
+lastName 		varchar(50) 		not null,
+firstName 		varchar(50) 	    not null,
+email			varchar(50)			not null,
+phoneNumber		varchar(16)
+);
+
+
+create table category(
+ID					integer				primary key auto_increment,
+name				varchar(9)			not null unique
+);
+
+
+
+create table menuItem (
+ID					integer				primary key auto_increment,
+categoryID			integer				not null,
+name				varchar(50)			not null,
+price				decimal				not null,
+calories			integer				not null,
+Foreign Key			(categoryID) 		references category(ID),
+CONSTRAINT unq_name unique (categoryID, name)
 );
 
 
 
 
-create table Ticket (
-ID				integer			primary key auto_increment,
+create table orderTicket (
+ID				integer					primary key auto_increment,
 customerID		integer					not null,
-menuItemID		varchar(255)			not null,
-courseCode		varchar(255)			not null,
-orderDate		varchar(255)			not null,
-status			varchar(255)			not null,
-total			varchar(255)			not null,
-Foreign Key 	(customerID)	references	customer(ID),
-Foreign Key 	(menuItemID)	references	menuItem(ID)
+orderDate		timestamp				not null,
+status			varchar(1)				not null,
+total			decimal					not null,
+Foreign Key 	(customerID)			references	customer(ID),
+CONSTRAINT unq_ticket unique (customerID, orderDate)
 );
 
 
 
-create table manuItem (
-ID					integer			primary key auto_increment,
-name				varchar(255)		not null,
-category			varchar(255)		not null,
-price				varchar(255)		not null
+
+create table lineItem(
+ID						integer				primary key auto_increment,
+orderTicketID			integer				not null,
+menuItemID				integer				not null,
+quantity				integer				not null,
+Foreign Key 			(orderTicketID)		references orderTicket(ID),
+Foreign Key				(menuItemID)		references menuItem(ID),
+CONSTRAINT unq_line unique (orderTicketID, menuItemID)
 );
 
-
-
-create table instructor (
-Id					integer			primary key auto_increment,
-firstName			varchar(255)		not null,
-lastName			varchar(255)		not null,
-courseID			integer				not null,
-Foreign Key (courseID)		references course(ID)
-);
-
-
--- student injection
- insert into studentCourse (studentID, courseID, gradeQ1, gradeQ2, gradeQ3, gradeQ4) VALUES
-();
+-- thing injection
+--  insert into thing () VALUES
+-- ();
 
 
 
 -- create a user and grant privileges to that user
-DROP USER IF EXISTS edudb_user@localhost;
-CREATE USER edudb_user@localhost IDENTIFIED BY 'sesame';
-GRANT SELECT, INSERT, DELETE, UPDATE ON edudb.* TO edudb_user@localhost;
+DROP USER IF EXISTS fooddb_user@localhost;
+CREATE USER fooddb_user@localhost IDENTIFIED BY 'sesame';
+GRANT SELECT, INSERT, DELETE, UPDATE ON fooddb.* TO fooddb_user@localhost;
