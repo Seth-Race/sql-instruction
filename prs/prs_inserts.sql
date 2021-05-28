@@ -1,86 +1,3 @@
--- prs database/Capstone project
--- started 05/28,2021
--- RUN INSERTS AFTER RUNNING THIS
-
--- create and select the database
-DROP DATABASE IF EXISTS prs;
-CREATE DATABASE prs;
-USE prs;
-
-
-
--- creation of tables
-
-Create table User (
-ID 				integer 			primary key auto_increment,
-username		varchar(20)			not null unique,
-password 		varchar(10) 		not null,
-lastName 		varchar(20) 		not null,
-firstName 		varchar(20) 	    not null,
-email			varchar(75)			not null,
-phone			varchar(12)			not null,
-reviewer		bit					not null,
-admin			bit					not null
-);
-
-
-
-Create table Vendor (
-ID 				integer 			primary key auto_increment,
-code			varchar(10)			not null unique,
-name	 		varchar(255) 		not null,
-address 		varchar(255) 	    not null,
-city			varchar(255)		not null,
-state			varchar(2)			not null,
-zip	 			varchar(5)			not null,
-phone			varchar(12)			not null,
-email			varchar(75)			not null
-);
-
-
-
-Create table Request (
-ID 					integer 			primary key auto_increment,
-userID				integer				not null unique,
-description			varchar(100) 		not null,
-justification		varchar(255) 	    not null,
-dateNeeded			date				not null,
-deliveryMode		varchar(25)			not null,
-status				varchar(20)			not null,
-total				decimal(10, 2)		not null,
-submittedDate		datetime			not null,
-reasonForRejection	varchar(100),
-Foreign Key 		(userID)			references user(ID)
-);
-
-
-
-Create table product (
-ID 				integer 			primary key auto_increment,
-vendorID		integer				not null,
-partNumber 		varchar(50) 		not null,
-name	 		varchar(150) 	    not null,
-price			decimal(10, 2)		not null,
-unit			varchar(255),
-photoPath		varchar(255),
-Foreign Key		(vendorID) 			references vendor(ID),
-Constraint		vendor_part			unique 	(vendorID, partNumber)
-);
-
-
-
-Create table lineItem (
-ID 				integer 		primary key auto_increment,
-requestID		integer			not null unique,
-productID		integer 		not null,
-quantity 		integer 	    not null,
-Foreign Key		(productID)		references product(ID),
-Foreign Key  	(requestID)		references request(ID),
-Constraint 		req_pdt			unique	(requestID, productID)
-);
-
-
-
 -- Add 'SYSTEM' user
 insert into user (Username, Password, FirstName, LastName, Phone, Email, Reviewer, Admin) VALUES
 	('SYSTEM', 'xxxxx', 'System', 'System', 'XXX-XXX-XXXX', 'system@test.com', 0, 0),
@@ -90,7 +7,7 @@ insert into user (Username, Password, FirstName, LastName, Phone, Email, Reviewe
     ('dmotley', '123456', 'Dylan', 'Motley', 'XXX-XXX-XXXX', 'dylanmotley@test.com', 0, 0),
     ('mchilders', '123456', 'Matthew', 'Childers', 'XXX-XXX-XXXX', 'Matthewchilders@test.com', 0, 0),
     ('mjowers', '123456', 'Michelle', 'Jowers', 'XXX-XXX-XXXX', 'michellejowers@test.com', 1, 1),
-    ('npatel', '123456', 'Naimish', 'Patel,', 'XXX-XXX-XXXX', 'naimishpatel@test.com', 0, 1)
+    ('npatel', '123456', 'Naimish', 'Patel,' 'XXX-XXX-XXXX', 'naimishpatel@test.com', 0, 1)
 ;
 
 -- insert some rows into the Vendor table
@@ -114,16 +31,3 @@ INSERT INTO `product` (`ID`,`VendorID`,`PartNumber`,`Name`,`Price`,`Unit`,`Photo
 INSERT INTO `product` (`ID`,`VendorID`,`PartNumber`,`Name`,`Price`,`Unit`,`PhotoPath`) VALUES (11,4,'940600','Canon imageCLASS Copier (D530)',99.99,NULL,NULL);
 INSERT INTO `product` (`ID`,`VendorID`,`PartNumber`,`Name`,`Price`,`Unit`,`PhotoPath`) VALUES (12,5,'228148','Acer Aspire ATC-780A-UR12 Desktop Computer',399.99,'','/images/AcerAspireDesktop.jpg');
 INSERT INTO `product` (`ID`,`VendorID`,`PartNumber`,`Name`,`Price`,`Unit`,`PhotoPath`) VALUES (13,5,'279364','Lenovo IdeaCentre All-In-One Desktop',349.99,'','/images/LenovoIdeaCenter.jpg');
-
-
-
-
-
-
-
-
-
--- create a user and grant privileges to that user
-DROP USER IF EXISTS prs_user@localhost;
-CREATE USER prs_user@localhost IDENTIFIED BY 'sesame';
-GRANT SELECT, INSERT, DELETE, UPDATE ON prs.* TO prs_user@localhost;
