@@ -26,7 +26,7 @@ insert into customer VALUES
 	(1, 'SR928', 'Race', 'Seth', 'srace@test.com', '513-827-1990'),
     (2, 'ZC967', 'Charles', 'Zeke', 'Zcharles@test.com', '513-827-1991'),
 	(3, 'AD725', 'Dudley', 'Amanda', 'Adudley@test2.com', '513-827-1992'),
-    (4, 'MJ230', 'James', 'Mick', 'MickJames@dawg.com', '513-827-1993')
+    (4, 'MJ230', 'James', 'Mick', 'MickJ@dawg.com', '513-827-1993')
 ;
 
 insert into orderTicket (id, customerID) VALUES
