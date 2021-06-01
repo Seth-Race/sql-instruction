@@ -27,8 +27,8 @@ lastName 		varchar(20) 		not null,
 firstName 		varchar(20) 	    not null,
 email			varchar(75)			not null,
 phone			varchar(12)			not null,
-reviewer		bit					not null,
-admin			bit					not null
+reviewer		bit					not null default 0,
+admin			bit					not null default 0
 );
 
 
@@ -49,14 +49,14 @@ email			varchar(75)			not null
 
 Create table Request (
 ID 					integer 			primary key identity(1,1),
-userID				integer				not null unique,
+userID				integer				not null,
 description			varchar(100) 		not null,
 justification		varchar(255) 	    not null,
 dateNeeded			date				not null,
 deliveryMode		varchar(25)			not null,
-status				varchar(20)			not null,
+status				varchar(20)			not null default 'New',
 total				decimal(10, 2)		not null,
-submittedDate		datetime			not null,
+submittedDate		datetime			not null default getdate() ,
 reasonForRejection	varchar(100),
 Foreign Key 		(userID)			references [user](ID)
 );
@@ -79,7 +79,7 @@ Constraint		vendor_part			unique 	(vendorID, partNumber)
 
 Create table lineItem (
 ID 				integer 		primary key identity(1,1),
-requestID		integer			not null unique,
+requestID		integer			not null,
 productID		integer 		not null,
 quantity 		integer 	    not null,
 Foreign Key		(productID)		references product(ID),
