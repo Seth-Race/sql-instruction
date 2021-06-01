@@ -42,13 +42,13 @@ email			varchar(75)			not null
 Create table Request (
 ID 					integer 			primary key auto_increment,
 userID				integer				not null unique,
-description			varchar(100) 		not null,
-justification		varchar(255) 	    not null,
-dateNeeded			date				not null,
-deliveryMode		varchar(25)			not null,
-status				varchar(20)			not null,
-total				decimal(10, 2)		not null,
-submittedDate		datetime			not null,
+description			varchar(100) 		not null default 'Request submitted for approval',
+justification		varchar(255) 	    not null default 'New employee equipment',
+dateNeeded			date				not null default (current_date),
+deliveryMode		varchar(25)			not null default 'Pick-up',
+status				varchar(20)			not null default 'Submitted',
+total				decimal(10, 2)		not null default '0.00',
+submittedDate		datetime			not null default (current_date),
 reasonForRejection	varchar(100),
 Foreign Key 		(userID)			references user(ID)
 );
@@ -71,7 +71,7 @@ Constraint		vendor_part			unique 	(vendorID, partNumber)
 
 Create table lineItem (
 ID 				integer 		primary key auto_increment,
-requestID		integer			not null unique,
+requestID		integer			not null,
 productID		integer 		not null,
 quantity 		integer 	    not null,
 Foreign Key		(productID)		references product(ID),

@@ -10,7 +10,7 @@
 --     join major m on m.id = s.majorID
 -- ;
 
--- left outer pulling classes and instructors, whether or not instructors are null or not.
+-- left outer pulling classes and instructors, whether or not instructors are null.
 -- select code, subject, i.firstName, i.lastName from class c
 -- 	left outer
 --     join instructor i on i.id = c.instructorID
